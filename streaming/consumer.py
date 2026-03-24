@@ -13,12 +13,12 @@ consumer = KafkaConsumer(
 )
 
 def save_raw(message):
-    os.makedirs('data/straming_raw',exist_ok=True)
+    os.makedirs('data/streaming_raw',exist_ok=True)
 
     filename = f"data/streaming_raw/{datetime.now().date()}.json"
 
     with open(filename,"a") as f:
-        f.write(json.dump(message)+ "\n")
+        f.write(json.dumps(message) + "\n")
     
 
 def main():
