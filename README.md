@@ -33,8 +33,8 @@ Soon Available after completion of this project
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/your-username/crypto-streaming-platform.git
-cd crypto-streaming-platform
+git clone https://github.com/dipeshluitel/crypto-data-platform.git
+cd crypto-data-platform
 ```
 
 ### 2. Install dependencies
