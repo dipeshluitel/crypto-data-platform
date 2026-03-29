@@ -18,12 +18,13 @@ consumer = KafkaConsumer(
 conn = psycopg2.connect(
     host = "localhost",
     database = "crypto_db",
-    user = "admin",
-    password = "admin"
+    user = "postgres",
+    password = "postgres",
+    port = "5432"
 )
 cur = conn.cursor()
 
-def insert_raw(data):
+def insert_data(data):
     query = """ INSERT INTO crypto_prices(coin, price, timestamp) VALUES(%s, %s, %s)"""
     cur.execute(query, (data['coin'],data['price'],datetime.fromtimestamp(data['timestamp'])))
     conn.commit()
@@ -53,7 +54,7 @@ def main():
         data = msg.value
         print(f"Inserted : {data}")
 
-        insert_raw(data)
+        insert_data(data)
 
 if __name__ == "__main__":
     main()
