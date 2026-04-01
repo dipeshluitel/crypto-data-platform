@@ -4,11 +4,22 @@ import time
 from kafka import KafkaProducer
 
 # Kafka setup
-producer = KafkaProducer(
-    bootstrap_servers='localhost:9092',
-    value_serializer=lambda v: json.dumps(v).encode('utf-8'),
-    key_serializer=lambda v: v.encode('utf-8')
-)
+# done this as docker loads up everything in a sync which will then result in a failure
+def create_producer():
+    while True:
+        try:
+            producer = KafkaProducer(
+                bootstrap_servers='kafka:9092',
+                value_serializer=lambda v: json.dumps(v).encode('utf-8'),
+                key_serializer=lambda v: v.encode('utf-8')
+            )
+            print("✅ Connected to Kafka")
+            return producer
+        except Exception as e:
+            print("❌ Kafka not ready, retrying in 5 seconds...")
+            time.sleep(5)
+
+producer = create_producer()
 
 COINS = ["BTC", "ETH"]
 
@@ -27,9 +38,11 @@ def main():
                             "price": price,
                             "timestamp": time.time()
                             }
-                producer.send('crypto_prices', key=coin, value=message)
+                producer.send('crypto_prices', key=coin, value=message).get()
                 print(f"Sent: {message}")
+        producer.flush()
         time.sleep(5)  # send every 5 seconds
+
 
 if __name__ == "__main__":
     main()
