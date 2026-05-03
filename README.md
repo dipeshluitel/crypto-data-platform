@@ -2,7 +2,6 @@
 
 A real-time cryptocurrency data pipeline built with **Apache Kafka**, **Python**, and **Docker**. The platform streams live BTC and ETH prices, ingests historical OHLCV data, and persists everything for downstream analysis.
 
->  **Work in progress** — actively being built and documented in public.
 
 
 ## Features
@@ -18,7 +17,26 @@ A real-time cryptocurrency data pipeline built with **Apache Kafka**, **Python**
 ## Project Structure
 
 ```
-Soon Available after completion of this project
+crypto-data-platform/
+├── Dockerfile
+├── README.md
+├── batch/
+│   └── historical_ingest.py
+├── data/
+│   ├── raw/
+│   │   ├── BTC_2026-03-22.csv
+│   │   └── ETH_2026-03-22.csv
+│   └── streaming_raw/
+│       ├── BTC_2026-03-24.json
+│       └── ETH_2026-03-24.json
+├── docker-compose.yml
+├── processing/
+│   └── transform.py
+├── requirements.txt
+└── streaming/
+    ├── 2026_04_01.txt
+    ├── consumer.py
+    └── producer.py
 ```
 
 ---
@@ -106,4 +124,4 @@ Prices fetched from the [CryptoCompare API](https://min-api.cryptocompare.com/) 
 
 ## License
 
-MIT License — feel free to fork, use, and build on top of this.
+[MIT License](LICENSE) — feel free to fork, use, and build on top of this.
